@@ -938,6 +938,8 @@ function ContactSection() {
    Footer
 ───────────────────────────────────────── */
 function Footer() {
+  const { visitCount } = useLoaderData() as { visitCount: number };
+
   return (
     <footer className="bg-black text-white py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -975,6 +977,22 @@ function Footer() {
               </a>
             ))}
           </nav>
+        </div>
+
+        {/* ── Visit Counter Strip ───────────────────────────────── */}
+        <div className="flex items-center justify-center gap-3 py-6 border-b border-white/5">
+          {/* Pulsing live dot */}
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-30" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-white/50" />
+          </span>
+          <p className="text-xs tracking-[0.25em] uppercase text-white/30">
+            Website Visits
+          </p>
+          <span className="text-white/10 text-xs">·</span>
+          <p className="font-serif text-white/70 text-sm tabular-nums">
+            {visitCount.toLocaleString()}
+          </p>
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">

@@ -18,6 +18,15 @@ if (!supabaseUrl || !supabaseAnonKey) {
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export async function loader() {
+  // ── Track this visit ──────────────────────────────────────────────
+  await supabase.from("site_visits").insert([{ visited_at: new Date().toISOString() }]);
+
+  // ── Fetch total visit count ───────────────────────────────────────
+  const { count: visitCount } = await supabase
+    .from("site_visits")
+    .select("*", { count: "exact", head: true });
+
+  // ── Fetch latest feedbacks ────────────────────────────────────────
   const { data: feedbacks, error } = await supabase
     .from("feedback")
     .select("*")
@@ -26,11 +35,11 @@ export async function loader() {
 
   if (error) {
     console.error("[Loader] Supabase Error:", error);
-    return { feedbacks: [] };
+    return { feedbacks: [], visitCount: visitCount ?? 0 };
   }
 
-  console.log(`[Loader] Fetched ${feedbacks?.length || 0} feedbacks.`);
-  return { feedbacks: feedbacks || [] };
+  console.log(`[Loader] Fetched ${feedbacks?.length || 0} feedbacks. Total visits: ${visitCount}`);
+  return { feedbacks: feedbacks || [], visitCount: visitCount ?? 0 };
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
