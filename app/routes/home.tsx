@@ -5,36 +5,64 @@ import { createClient } from "@supabase/supabase-js";
 
 // Initialize Supabase client
 const getEnv = (key: string) => {
-  return import.meta.env[key] || process.env[key] || "";
+  // Try both prefixed and non-prefixed versions
+  const prefixedKey = `VITE_${key.replace(/^VITE_/, "")}`;
+  const directKey = key.replace(/^VITE_/, "");
+  
+  return (
+    import.meta.env[prefixedKey] || 
+    import.meta.env[directKey] || 
+    process.env[prefixedKey] || 
+    process.env[directKey] || 
+    ""
+  );
 };
 
-const supabaseUrl = getEnv("VITE_SUPABASE_URL");
-const supabaseAnonKey = getEnv("VITE_SUPABASE_ANON_KEY");
+const supabaseUrl = getEnv("SUPABASE_URL");
+const supabaseAnonKey = getEnv("SUPABASE_ANON_KEY");
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn("Supabase credentials missing. Check your .env file.");
+  console.warn("Supabase credentials missing. Check your environment variables (SUPABASE_URL and SUPABASE_ANON_KEY).");
 }
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export async function loader() {
   // ── Track this visit ──────────────────────────────────────────────
-  await supabase.from("site_visits").insert([{ visited_at: new Date().toISOString() }]);
+  // Note: Ensure that "site_visits" table has an RLS policy that allows 
+  // insertion for the "anon" role if using the anon key.
+  try {
+    const { error: visitError } = await supabase
+      .from("site_visits")
+      .insert([{ visited_at: new Date().toISOString() }]);
+
+    if (visitError) {
+      console.error("[Loader] Visit tracking failed:", visitError.message, visitError.details, visitError.hint);
+    } else {
+      console.log("[Loader] Visit logged successfully.");
+    }
+  } catch (err) {
+    console.error("[Loader] Critical error during visit tracking:", err);
+  }
 
   // ── Fetch total visit count ───────────────────────────────────────
-  const { count: visitCount } = await supabase
+  const { count: visitCount, error: countError } = await supabase
     .from("site_visits")
     .select("*", { count: "exact", head: true });
 
+  if (countError) {
+    console.error("[Loader] Fetching visit count failed:", countError);
+  }
+
   // ── Fetch latest feedbacks ────────────────────────────────────────
-  const { data: feedbacks, error } = await supabase
+  const { data: feedbacks, error: feedbacksError } = await supabase
     .from("feedback")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(5);
 
-  if (error) {
-    console.error("[Loader] Supabase Error:", error);
+  if (feedbacksError) {
+    console.error("[Loader] Supabase Error:", feedbacksError);
     return { feedbacks: [], visitCount: visitCount ?? 0 };
   }
 

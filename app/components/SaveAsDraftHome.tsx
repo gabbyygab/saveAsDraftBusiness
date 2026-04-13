@@ -36,10 +36,10 @@ function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-16 py-3">
+      <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-28 py-4">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group">
-          <div className="h-10 w-20 overflow-hidden flex items-center justify-center transition-all duration-300">
+          <div className="h-20 w-20 md:h-24 md:w-24 flex items-center justify-center transition-all duration-300">
             <img
               src={Logo}
               alt="SaveAsDraft Logo"
@@ -922,11 +922,11 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10 border-b border-white/10">
           {/* Logo side */}
           <div className="flex flex-col items-center md:items-start gap-4">
-            <div className="h-14 w-28 overflow-hidden flex items-center justify-start">
+            <div className="h-24 w-24 flex items-center justify-start overflow-visible">
               <img
                 src={Logo}
                 alt="SaveAsDraft"
-                className="h-full w-full object-contain brightness-0 invert"
+                className="h-full w-full object-contain"
               />
             </div>
             <p className="font-serif italic text-white/40 text-sm text-center md:text-left">

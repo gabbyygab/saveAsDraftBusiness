@@ -15,7 +15,7 @@ SaveAsDraft is a production-ready web application for a business offering **Wedd
 
 ### Brand Identity & Design
 - **Business Concept:** One-pager business front for digital event invitations.
-- **Logo:** Located at `app/assets/Logo/image.png`.
+- **Logo:** Located at `app/assets/Logo/new Logo.png`.
 - **Color Palette:** Minimalist black and white.
 - **Typography:** Elegant, beautiful calligraphy/wedding-style fonts. (e.g., *Great Vibes*, *Playfair Display*, or *Dancing Script* from Google Fonts).
 - **Design Philosophy:** Comprehensive, beautiful, and minimalist, leveraging Tailwind CSS for a high-impact visual experience.
