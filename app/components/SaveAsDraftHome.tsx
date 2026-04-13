@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { useActionData, useLoaderData, Form } from "react-router";
 import { toast } from "react-toastify";
-import Logo from "../assets/Logo/image.png";
+import Logo from "../assets/Logo/new Logo.png";
 import AlbertJamesScreenshot from "../assets/Layouts/albert-james.png";
 
 /* ─────────────────────────────────────────
@@ -39,16 +39,13 @@ function Navbar() {
       <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-16 py-3">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group">
-          <div className="h-10 w-10 rounded-full border border-black/10 overflow-hidden flex items-center justify-center bg-white group-hover:border-black transition-all duration-300 shadow-sm group-hover:shadow-md">
+          <div className="h-10 w-20 overflow-hidden flex items-center justify-center transition-all duration-300">
             <img
               src={Logo}
               alt="SaveAsDraft Logo"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
             />
           </div>
-          <span className="font-serif text-base font-semibold tracking-tight text-black group-hover:text-black/70 transition-colors">
-            SaveAsDraft
-          </span>
         </a>
 
         {/* Desktop Nav */}
@@ -876,7 +873,7 @@ function ContactSection() {
             </span>
           </div>
           <p className="font-serif italic text-black/50 text-xl leading-relaxed max-w-2xl mx-auto mb-16">
-            For inquiries, message us at our Instagram. If you cannot contact us there, you may reach us through our Facebook.
+            For inquiries, message us at our Instagram — we'd love to hear from you.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
@@ -899,27 +896,6 @@ function ContactSection() {
                 </div>
                 <div className="text-black font-medium text-lg">
                   @saveasdraft__
-                </div>
-              </div>
-            </a>
-
-            <a
-              href="https://www.facebook.com/ajrys"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col items-center gap-4 p-8 border border-black/5 rounded-2xl hover:border-black transition-all duration-500 w-full sm:w-80"
-            >
-              <div className="w-14 h-14 rounded-full border border-black/10 flex items-center justify-center text-2xl group-hover:bg-black group-hover:text-white transition-all duration-500">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                </svg>
-              </div>
-              <div>
-                <div className="text-xs tracking-widest text-black/40 uppercase mb-1">
-                  Facebook
-                </div>
-                <div className="text-black font-medium text-lg">
-                  Aj Reyes
                 </div>
               </div>
             </a>
@@ -946,11 +922,11 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10 border-b border-white/10">
           {/* Logo side */}
           <div className="flex flex-col items-center md:items-start gap-4">
-            <div className="h-14 w-14 rounded-full border border-white/20 overflow-hidden flex items-center justify-center bg-white shadow-inner">
+            <div className="h-14 w-28 overflow-hidden flex items-center justify-start">
               <img
                 src={Logo}
                 alt="SaveAsDraft"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain brightness-0 invert"
               />
             </div>
             <p className="font-serif italic text-white/40 text-sm text-center md:text-left">
